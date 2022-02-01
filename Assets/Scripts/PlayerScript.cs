@@ -26,10 +26,11 @@ public class PlayerScript : MonoBehaviour
         if (isGameStarted)
         {
             currentTime = currentTime - Time.deltaTime;
-            Debug.Log(currentTime);
             TimeSpan time = TimeSpan.FromSeconds(currentTime);
             currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString();
+            
             // scalling is hapenning here //
+
             if (Input.GetKey(KeyCode.Space))
             {
                 transform.localScale += new Vector3(1f, 1f, 1f) * increaseSize;
@@ -43,24 +44,42 @@ public class PlayerScript : MonoBehaviour
             {
                 transform.localScale = new Vector3(1f, 1f, 1f);
             }
+            
             // end of scaling code //
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                transform.Rotate(Vector3.right);
+                rotateUpward();   
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-                transform.Rotate(-Vector3.right);
+                rotateDownward();
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Rotate(Vector3.up);
+                rotateRightward();
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Rotate(-Vector3.up);
+                rotateLeftward();
             }
         }
+    }
+    void rotateUpward() 
+    {
+        transform.Rotate(Vector3.right);
+    }
+    void rotateDownward()
+    {
+        transform.Rotate(-Vector3.right);
+    }
+    void rotateRightward()
+    {
+        transform.Rotate(Vector3.up);
+    }
+
+    void rotateLeftward() 
+    {
+        transform.Rotate(-Vector3.up);
     }
 }

@@ -514,8 +514,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameStarted: 0
-  minutes: 0
-  currentTimeText: {fileID: 0}
+  minutes: 1
+  currentTimeText: {fileID: 2002491155}
 --- !u!65 &1504561156
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &2002491156
 CanvasRenderer:
   m_ObjectHideFlags: 0
