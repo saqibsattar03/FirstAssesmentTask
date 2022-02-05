@@ -3,32 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField]
     private bool isGameStarted;
     private float increaseSize;
+    public GameObject startButton;
     [SerializeField]
     private int minutes;
     float currentTime;
     public Text currentTimeText;
+    [SerializeField]
+    private Text gameOverMessage;
+    private TimeSpan time;
+    public List<Color> TintColors;
     // Start is called before the first frame update
     void Start()
     {
+
         increaseSize = 0.01f;
         currentTime = minutes * 60;
+        Debug.Log(currentTime);
+        Color color = TintColors[UnityEngine.Random.Range(0, TintColors.Count)];
+
+        GetComponent<Renderer>().material.color = color;
+
     }
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
+       
+
         if (isGameStarted)
         {
-            currentTime = currentTime - Time.deltaTime;
-            TimeSpan time = TimeSpan.FromSeconds(currentTime);
-            currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString();
-            
+            timer();
+
             // scalling is hapenning here //
 
             if (Input.GetKey(KeyCode.Space))
@@ -65,6 +77,35 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+    void timer()
+    {
+        if (currentTime == 0 || currentTime < 0)
+        {
+            Debug.Log("here");
+            isGameStarted = false;
+            currentTimeText.text = 00.ToString() + ":" + 00.ToString();
+            gameOver();
+        }
+        else
+        {
+            isGameStarted = true;
+            currentTime = currentTime - Time.deltaTime;
+            time = TimeSpan.FromSeconds(currentTime);
+            currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        }
+
+    }
+
+    public void playButton() 
+    {
+        isGameStarted = true;
+        if (isGameStarted == true) 
+        {
+            startButton.SetActive(false);
+        }
+    }
+
+
     void rotateUpward() 
     {
         transform.Rotate(Vector3.right);
@@ -82,4 +123,15 @@ public class PlayerScript : MonoBehaviour
     {
         transform.Rotate(-Vector3.up);
     }
+
+    void gameOver()
+    {
+        gameOverMessage.text = "Game Over";
+        startButton.GetComponentInChildren<Text>().text = "Restart";
+        if (startButton.GetComponentInChildren<Text> ().text == "Restart") 
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        startButton.SetActive(true);
+    } 
 }
