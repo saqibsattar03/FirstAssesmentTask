@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     private bool isGameStarted;
     private float increaseSize;
     public GameObject startButton;
+    public GameObject restartButton;
     [SerializeField]
     private int minutes;
     float currentTime;
@@ -27,8 +28,8 @@ public class PlayerScript : MonoBehaviour
         currentTime = minutes * 60;
         Debug.Log(currentTime);
         Color color = TintColors[UnityEngine.Random.Range(0, TintColors.Count)];
-
         GetComponent<Renderer>().material.color = color;
+        restartButton.SetActive(false);
 
     }
 
@@ -77,7 +78,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
-    void timer()
+	void timer()
     {
         if (currentTime == 0 || currentTime < 0)
         {
@@ -127,11 +128,14 @@ public class PlayerScript : MonoBehaviour
     void gameOver()
     {
         gameOverMessage.text = "Game Over";
-        startButton.GetComponentInChildren<Text>().text = "Restart";
-        if (startButton.GetComponentInChildren<Text> ().text == "Restart") 
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        startButton.SetActive(true);
-    } 
+        //startButton.GetComponentInChildren<Text>().text = "Restart";
+        restartButton.SetActive(true);
+    }
+
+    public void restartGame() 
+    {
+        Debug.Log("here in restart gaeme");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+       // playButton();
+    }
 }
