@@ -82,7 +82,6 @@ public class PlayerScript : MonoBehaviour
     {
         if (currentTime == 0 || currentTime < 0)
         {
-            Debug.Log("here");
             isGameStarted = false;
             currentTimeText.text = 00.ToString() + ":" + 00.ToString();
             gameOver();
